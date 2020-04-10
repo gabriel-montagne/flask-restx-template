@@ -15,14 +15,24 @@ class DevelopmentConfig(Config):
     # uncomment the line below to use postgres
     # SQLALCHEMY_DATABASE_URI = postgres_local_base
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'flask_boilerplate_main.db')
+    DB_USER = os.getenv(f'DB_USER_DEV', 'admin')
+    DB_PASSWORD = os.getenv(f'DB_PASSWORD_DEV', 'admin1234')
+    DB_NAME = os.getenv(f'DB_NAME_DEV', 'flask')
+    DB_HOST = os.getenv(f'DB_HOST_DEV', 'localhost')
+    DB_PORT = os.getenv(f'DB_PORT_DEV', '5432')
+    SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'flask_boilerplate_test.db')
+    DB_USER = os.getenv(f'DB_USER_TEST', 'admin')
+    DB_PASSWORD = os.getenv(f'DB_PASSWORD_TEST', 'admin1234')
+    DB_NAME = os.getenv(f'DB_NAME_TEST', 'flask_test')
+    DB_HOST = os.getenv(f'DB_HOST_TEST', 'localhost')
+    DB_PORT = os.getenv(f'DB_PORT_TEST', '5432')
+    SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

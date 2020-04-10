@@ -26,6 +26,18 @@ start_db:
 	docker-compose up -d
 
 
+init:
+	python manage.py db init
+
+
+migrate:
+	python manage.py db migrate
+
+
+upgrade:
+	python manage.py db upgrade
+
+
 run:
 	python manage.py run
 
