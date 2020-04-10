@@ -30,8 +30,8 @@ init:
 	python manage.py db init
 
 
-migrate:
-	python manage.py db migrate
+migrate:		# make migrate m=comment
+	python manage.py db migrate -m ${m}
 
 
 upgrade:
