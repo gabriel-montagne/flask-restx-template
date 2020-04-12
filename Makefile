@@ -48,5 +48,5 @@ pep8:
 
 test: start_db
 	export APP_ENV=test && \
-	.venv/bin/pytest --cov application --cov models --cov-report html --cov-report term
+	.venv/bin/pytest -p no:warnings --cov app --cov-report html --cov-report term
 	open -a 'Google Chrome' './htmlcov/index.html'

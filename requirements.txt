@@ -13,5 +13,6 @@ Flask-SQLAlchemy==2.4.1
 psycopg2-binary==2.8.5
 pytest==5.4.1
 pytest-cov==2.8.1
+PyJWT==1.5.3
 sqlalchemy
 Werkzeug==0.15.3
