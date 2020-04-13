@@ -1,4 +1,7 @@
 alembic==1.4.2
+blinker==1.4
+bugsnag==4.1.0
+click==7.1.2
 coverage==5.0.4
 bcrypt==3.1.7
 email-validator==1.0.5
@@ -10,9 +13,18 @@ Flask-Testing==0.8.0
 flask-restplus==0.13.0
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.1
+matplotlib==3.4.3
+mypy==0.910
+numpy==1.19.5
+pandas==1.1.5
 psycopg2-binary==2.8.5
 pytest==5.4.1
 pytest-cov==2.8.1
 PyJWT==1.5.3
+scikit-learn==0.24.1
+scipy==1.5.4
+six==1.15.0
+sklearn==0.0
 sqlalchemy
-Werkzeug==0.15.3
+Werkzeug==0.16.0
+xgboost==1.4.2

@@ -1,6 +1,7 @@
 from app.main import db
 from app.main.model.user import User
 from app.main.model.user_roles import UserRole
+from app.main.service.authorization_helper import init_role_authorization
 
 
 def create_update_role(data):
@@ -8,7 +9,8 @@ def create_update_role(data):
     if not role:
         new_role = UserRole(
             name=data['name'],
-            description=data['description']
+            description=data.get('description', ''),
+            authorization=init_role_authorization(data['name'])
         )
         db.session.add(new_role)
         db.session.commit()
@@ -19,7 +21,8 @@ def create_update_role(data):
         }
         return response_object, 201
     else:
-        role.description = data['description']
+        role.description = data.get('description', role.description)
+        role.authorization = data.get('authorization', role.authorization)
         db.session.commit()
         response_object = {
             'status': 'success',
@@ -58,3 +61,7 @@ def delete_role(role_name):
 
 def get_all_roles():
     return UserRole.query.all()
+
+
+def get_role_by_name(name):
+    return UserRole.query.filter_by(name=name).first()

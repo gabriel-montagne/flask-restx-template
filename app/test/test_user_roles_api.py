@@ -1,14 +1,14 @@
 from app.test.base import BaseTestCase
 
 
-def register(self):
+def register(self, role):
     return self.client.post(
         '/api/user',
         json={
             'email': "user@email.com",
             'username': "user",
             'password': "password",
-            'roles': ['user'],
+            'roles': [role],
             'oauth_id': "oauth",
             'oauth_type': "GOOGLE"
         },
@@ -38,9 +38,9 @@ def delete_role(self, name, token):
 class UserRoleResourceTest(BaseTestCase):
 
     def test_create_update_role(self):
-        response = register(self)
+        response = register(self, 'admin')
         token = response.json.get('Authorization')
-        response = create_update_role(self, 'admin', 'admin description', token)
+        response = create_update_role(self, 'superadmin', 'admin description', token)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.headers['Content-Type'], "application/json")
         response = create_update_role(self, 'admin', 'admin description updated', token)
@@ -48,12 +48,9 @@ class UserRoleResourceTest(BaseTestCase):
         self.assertEqual(response.headers['Content-Type'], "application/json")
 
     def test_delete_role(self):
-        response = register(self)
+        response = register(self, 'admin')
         token = response.json.get('Authorization')
-        response = create_update_role(self, 'user', 'user description', token)
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.headers['Content-Type'], "application/json")
-        response = delete_role(self, 'user', token)
+        response = delete_role(self, 'admin', token)
         self.assertEqual(response.status_code, 400)
         response = create_update_role(self, 'manager', 'manager description', token)
         self.assertEqual(response.status_code, 201)
@@ -61,13 +58,10 @@ class UserRoleResourceTest(BaseTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_update_users_roles(self):
-        response = register(self)
+        response = register(self, 'admin')
         self.assertEqual(response.status_code, 201)
         token = response.json.get('Authorization')
         public_id = response.json['public_id']
-        response = create_update_role(self, 'admin', 'admin description', token)
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.headers['Content-Type'], "application/json")
         response = self.client.put(
             f'/api/user/{public_id}',
             json={
