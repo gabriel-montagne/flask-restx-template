@@ -5,6 +5,7 @@ import uuid
 from app.main import db
 from manage import app
 from app.main.model.user import User
+from app.main.controller.user_role_controller import create_update_role
 
 
 class BaseTestCase(TestCase):
@@ -17,6 +18,7 @@ class BaseTestCase(TestCase):
     def setUp(self):
         db.create_all()
         db.session.commit()
+        create_roles(['user', 'admin'])
 
     def tearDown(self):
         db.session.remove()
@@ -39,3 +41,8 @@ def create_test_users(n):
         users.append(user)
     db.session.commit()
     return users
+
+
+def create_roles(roles):
+    for role in roles:
+        create_update_role({'name': role})

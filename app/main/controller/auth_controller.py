@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Resource
 
-from app.main.service.authentication_helper import Authentication
+from app.main.service.authentication_helper import login_user, logout_user
 from ..util.dto import AuthDto
 
 api = AuthDto.api
@@ -19,7 +19,7 @@ class UserLogin(Resource):
     def post(self):
         # get the post data
         post_data = request.json
-        return Authentication.login_user(data=post_data)
+        return login_user(data=post_data)
 
     @api.route('/logout')
     class LogoutAPI(Resource):
@@ -31,4 +31,4 @@ class UserLogin(Resource):
         def post(self):
             # get auth token
             auth_header = request.headers.get('Authorization')
-            return Authentication.logout_user(data=auth_header)
+            return logout_user(data=auth_header)

@@ -1,4 +1,4 @@
-from app.test.base import BaseTestCase, create_test_users
+from app.test.base import BaseTestCase, create_test_users, create_roles
 
 
 def register(self):

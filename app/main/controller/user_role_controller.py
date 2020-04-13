@@ -21,6 +21,7 @@ class UserRoleList(Resource):
     @api.expect(_user_role, validate=True)
     @api.response(201, 'Role successfully created.')
     @api.response(409, 'Role already exists.')
+    @token_required
     @api.doc('create a new role')
     def post(self):
         """Creates a new Role or update an existing one """
