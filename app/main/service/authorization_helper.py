@@ -6,6 +6,11 @@ API_NAMESPACE_PATH = {
 
 
 def init_role_authorization(role):
+    """
+
+    :param role:
+    :return:
+    """
     granted = role == 'admin'
     return {
         p: {'get': True, 'post': granted, 'put': granted, 'delete': granted}
@@ -14,6 +19,11 @@ def init_role_authorization(role):
 
 
 def get_merged_authorization(roles):
+    """
+
+    :param roles:
+    :return:
+    """
     authorization = init_role_authorization('user')
     for role in roles:
         for path in authorization.keys():

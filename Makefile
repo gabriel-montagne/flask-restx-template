@@ -30,6 +30,14 @@ init:
 	python manage.py db init
 
 
+sphinx-init:
+	sphinx-quickstart
+
+
+sphynx-build:
+	sphinx-build -b html source build
+
+
 migrate:		# make migrate m=comment
 	python manage.py db migrate -m ${m}
 

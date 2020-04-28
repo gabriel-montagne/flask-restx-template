@@ -1,3 +1,6 @@
+"""
+Main documentation for this module
+"""
 from flask_restplus import Api
 from flask import Blueprint
 
