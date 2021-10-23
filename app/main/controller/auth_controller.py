@@ -1,5 +1,5 @@
 from flask import request
-from flask_restplus import Resource
+from flask_restx import Resource
 
 from app.main.service.authentication_helper import login_user, logout_user
 from ..util.dto import AuthDto

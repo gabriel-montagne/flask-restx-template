@@ -27,11 +27,24 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    DB_USER = os.getenv(f'DB_USER_TEST', 'admin')
-    DB_PASSWORD = os.getenv(f'DB_PASSWORD_TEST', 'admin1234')
-    DB_NAME = os.getenv(f'DB_NAME_TEST', 'flask_test')
-    DB_HOST = os.getenv(f'DB_HOST_TEST', 'localhost')
-    DB_PORT = os.getenv(f'DB_PORT_TEST', '5432')
+    DB_USER = os.getenv(f'DB_USER', 'admin')
+    DB_PASSWORD = os.getenv(f'DB_PASSWORD', 'admin1234')
+    DB_NAME = os.getenv(f'DB_NAME', 'flask')
+    DB_HOST = os.getenv(f'DB_HOST', 'localhost')
+    DB_PORT = os.getenv(f'DB_PORT', '5432')
+    SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+class DockerConfig(Config):
+    DEBUG = True
+    TESTING = True
+    DB_USER = os.getenv(f'DB_USER', 'admin')
+    DB_PASSWORD = os.getenv(f'DB_PASSWORD', 'admin1234')
+    DB_NAME = os.getenv(f'DB_NAME', 'flask')
+    DB_HOST = os.getenv(f'DB_HOST', 'localhost')
+    DB_PORT = os.getenv(f'DB_PORT', '5432')
     SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -46,7 +59,8 @@ class ProductionConfig(Config):
 config_by_name = dict(
     dev=DevelopmentConfig,
     test=TestingConfig,
-    prod=ProductionConfig
+    prod=ProductionConfig,
+    docker=DockerConfig
 )
 
 key = Config.SECRET_KEY

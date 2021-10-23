@@ -1,6 +1,4 @@
-# OGRE 
-
-## WIND and SOLAR
+# FLASK RESTX template
 
 ### Prerequisites:
 - Python 3.9
@@ -31,8 +29,8 @@
                       
 ### DB migrations:
 - create a new automated revision:
-    > make migrate_revision m=_revision-name_
+    > flask db migrate -m=_revision-name_
 - create a new empty revision:
-    > make alembic_revision m=_revision-name_
+    > flask db revision
 - migrate revision:
-    > make migrate_upgrade env=_environment(test/dev)_
+    > flask db upgrade
