@@ -1,9 +1,30 @@
 version: '3'
 
 services:
+  api:
+    build: .
+    container_name: wind_solar_rest_api
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/usr/src
+    environment:
+      APP_ENV: docker
+      FLASK_APP: main.py
+      DB_HOST: postgres
+      DB_USER: admin
+      DB_PASSWORD: admin1234
+      DB_NAME: wind_solar
+      POSTGRES_DB: wind_solar
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    command: ["./wait-for-it.sh", "postgres/5432", "sh run-server.sh"]
+
   postgres:
     image: postgres:9.6-alpine
-    container_name: postgres
+    container_name: wind_solar_postgres
     restart: always
     volumes:
       - ./models/database:/docker-entrypoint-initdb.d
@@ -11,7 +32,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin1234
-      POSTGRES_DB: flask
+      POSTGRES_DB: wind_solar
     ports:
       - "5432:5432"
 

@@ -6,19 +6,7 @@
 	.venv/bin/pip install -U pip setuptools
 
 
-alembic/init:
-	alembic init models/database/alembic
-
-
-alembic/revision:  		# make alembic/revision comment=new_revision
-	alembic revision --autogenerate -m ${comment}
-
-
-alembic/migrations:		# make alembic/migrations env=dev
-	@(export PYTHONPATH=$(shell pwd) && export APP_ENV=${env} && alembic upgrade head)
-
-
-install: .venv
+install: .venv/bin/pip
 	.venv/bin/pip install -r requirements.txt
 
 
@@ -26,24 +14,17 @@ start_db:
 	docker-compose up -d
 
 
-init:
-	python manage.py db init
-
-
-migrate:		# make migrate m=comment
-	python manage.py db migrate -m ${m}
-
-
-upgrade:
-	python manage.py db upgrade
-
-
 run:
-	python manage.py run
+	export FLASK_APP=main.py \
+	&& flask run
+
+
+run_docker:
+	docker-compose up
 
 
 pep8:
-	. .venv/bin/activate && flake8 --ignore E501 ghibli_project
+	. .venv/bin/activate && flake8 --ignore E501
 
 
 test: start_db
